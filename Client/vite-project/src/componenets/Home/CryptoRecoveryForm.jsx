@@ -1,47 +1,103 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { bg, yellow } from "../../constents/colors";
+import Modal from "../Modal"; // Import the Modal component
+import countries from "../../constents/countries"; // Import countries from the separate file
+import countryCodes from "../../constents/countryCodes"; // Import country codes from the separate file
 
 const CryptoRecoveryForm = () => {
-  const handleSubmit = (e) => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    countryCode: "",
+    cryptoName: "",
+    amount: "",
+    country: "",
+    caseReport: "",
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false); // Close the modal
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted");
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/crypto-recovery/add",
+        formData
+      );
+      // Open the modal upon successful submission
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        countryCode: "",
+        cryptoName: "",
+        amount: "",
+        country: "",
+        caseReport: "",
+      });
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
     <div
       style={{ backgroundColor: bg }}
-      className="min-h-screen text-white py-20 lg:py-40 px-4 sm:px-6 lg:px-6 "
+      className="min-h-screen text-white py-20 px-4 sm:px-6 lg:px-8"
     >
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-6xl font-bold text-center mb-2 leading-snug tracking-wide">
+        <h1 className="text-4xl sm:text-6xl font-bold text-center mb-2 leading-snug tracking-wide">
           Recover your money from <br /> cryptocurrency scams
         </h1>
         <p
-          style={{ color: yellow, fontFamily: "Montserrat Alternates" }} // Use the imported yellow color
-          className="text-5xl font-bold text-center mb-8"
+          style={{ color: yellow, fontFamily: "Montserrat Alternates" }}
+          className="text-3xl sm:text-5xl font-bold text-center mb-8"
         >
           no-win, no fee
         </p>
 
-        <p className="text-xl text-center mb-20">
+        <p className="text-lg sm:text-xl text-center mb-20">
           Ripped off by scammers? Get in touch with us and our team of
-          <br /> experts will get your money back.
+          <br className="hidden sm:block" /> experts will get your money back.
         </p>
-        <div className="bg-gray-800 p-8 rounded-lg shadow-lg">
+        <div className="bg-gray-800 p-6 sm:p-8 rounded-lg shadow-lg">
           <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <p
+              style={{ fontFamily: "Montserrat Alternates" }}
+              className="text-3xl font-bold text-center mb-8"
+            >
+              Let's get your money back!
+            </p>
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
               <div>
                 <label
                   htmlFor="firstName"
                   className="block text-sm font-medium mb-1"
                 >
-                  First Name
+                  First Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   id="firstName"
                   name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
                   required
                   className="w-full px-3 py-2 bg-gray-700 rounded-md"
                 />
@@ -51,12 +107,14 @@ const CryptoRecoveryForm = () => {
                   htmlFor="lastName"
                   className="block text-sm font-medium mb-1"
                 >
-                  Last Name
+                  Last Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   id="lastName"
                   name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
                   required
                   className="w-full px-3 py-2 bg-gray-700 rounded-md"
                 />
@@ -66,12 +124,14 @@ const CryptoRecoveryForm = () => {
                   htmlFor="email"
                   className="block text-sm font-medium mb-1"
                 >
-                  Email
+                  Email <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                   className="w-full px-3 py-2 bg-gray-700 rounded-md"
                 />
@@ -81,27 +141,50 @@ const CryptoRecoveryForm = () => {
                   htmlFor="phone"
                   className="block text-sm font-medium mb-1"
                 >
-                  Phone/Mobile Number
+                  Phone/Mobile Number <span className="text-red-500">*</span>
                 </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  required
-                  className="w-full px-3 py-2 bg-gray-700 rounded-md"
-                />
+                <div className="flex space-x-2">
+                  <select
+                    name="countryCode"
+                    value={formData.countryCode}
+                    onChange={handleChange}
+                    required
+                    className="bg-gray-700 px-3 py-2 rounded-md w-1/3"
+                  >
+                    <option value="">+ Country Code</option>
+                    {countryCodes.map((code) => (
+                      <option key={code.code} value={code.code}>
+                        {code.name} {code.code}{" "}
+                        {/* Display name and code together */}
+                      </option>
+                    ))}
+                  </select>
+
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                    className="w-2/3 px-3 py-2 bg-gray-700 rounded-md"
+                  />
+                </div>
               </div>
+
               <div>
                 <label
                   htmlFor="cryptoName"
                   className="block text-sm font-medium mb-1"
                 >
-                  Name of Cryptocurrency
+                  Name of Cryptocurrency <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   id="cryptoName"
                   name="cryptoName"
+                  value={formData.cryptoName}
+                  onChange={handleChange}
                   required
                   className="w-full px-3 py-2 bg-gray-700 rounded-md"
                   placeholder="e.g. Bitcoin, Ethereum, etc."
@@ -112,12 +195,15 @@ const CryptoRecoveryForm = () => {
                   htmlFor="amount"
                   className="block text-sm font-medium mb-1"
                 >
-                  Amount of Funds Lost/Stuck
+                  Amount of Funds Lost/Stuck{" "}
+                  <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   id="amount"
                   name="amount"
+                  value={formData.amount}
+                  onChange={handleChange}
                   required
                   className="w-full px-3 py-2 bg-gray-700 rounded-md"
                 />
@@ -127,19 +213,22 @@ const CryptoRecoveryForm = () => {
                   htmlFor="country"
                   className="block text-sm font-medium mb-1"
                 >
-                  Country
+                  Country <span className="text-red-500">*</span>
                 </label>
                 <select
                   id="country"
                   name="country"
+                  value={formData.country}
+                  onChange={handleChange}
                   required
                   className="w-full px-3 py-2 bg-gray-700 rounded-md"
                 >
                   <option value="">Select Country</option>
-                  <option value="us">United States</option>
-                  <option value="uk">United Kingdom</option>
-                  <option value="ca">Canada</option>
-                  {/* Add more countries as needed */}
+                  {countries.map((country) => (
+                    <option key={country.value} value={country.value}>
+                      {country.label}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="sm:col-span-2">
@@ -147,12 +236,14 @@ const CryptoRecoveryForm = () => {
                   htmlFor="caseReport"
                   className="block text-sm font-medium mb-1"
                 >
-                  Case Report
+                  Case Report <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="caseReport"
                   name="caseReport"
                   rows="4"
+                  value={formData.caseReport}
+                  onChange={handleChange}
                   required
                   className="w-full px-3 py-2 bg-gray-700 rounded-md"
                   placeholder="Please describe your case in more detail here..."
@@ -177,6 +268,14 @@ const CryptoRecoveryForm = () => {
           </form>
         </div>
 
+        {/* Modal Component */}
+        <Modal
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+          title="Submission Successful!"
+          message="Thank you for your submission. Our team will review your case and contact you shortly."
+        />
+
         <section className="text-white py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
@@ -198,11 +297,6 @@ const CryptoRecoveryForm = () => {
                 scams, we will give you our honest evaluation of your case, and
                 if possible, we will give our best effort to recover your money.
               </p>
-            </div>
-            <div className="mt-8 text-center">
-              <button className="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-3 px-6 rounded-full transition duration-300 transform hover:scale-105">
-                Contact Us Now
-              </button>
             </div>
           </div>
         </section>
