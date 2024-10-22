@@ -12,7 +12,10 @@ function Requests() {
     const fetchRequests = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/v1/crypto-recovery/cases"
+          // "http://localhost:5000/api/v1/crypto-recovery/cases"
+          `${
+            import.meta.env.VITE_REACT_APP_BACKEND_BASEURL
+          }/crypto-recovery/cases`
         );
         setRequests(response.data.data);
       } catch (err) {
@@ -27,9 +30,14 @@ function Requests() {
 
   const handleDeleteRequest = async (id) => {
     try {
-      await axios.post(`http://localhost:5000/api/v1/crypto-recovery/delete`, {
-        id, // Sending ID as an object
-      });
+      await axios.post(
+        `${
+          import.meta.env.VITE_REACT_APP_BACKEND_BASEURL
+        }/crypto-recovery/delete`,
+        {
+          id, // Sending ID as an object
+        }
+      );
 
       // Update the state to remove the deleted request
       setRequests((prevRequests) =>

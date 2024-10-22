@@ -35,7 +35,7 @@ const CryptoRecoveryForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/crypto-recovery/add",
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/crypto-recovery/add`,
         formData
       );
       // Open the modal upon successful submission
