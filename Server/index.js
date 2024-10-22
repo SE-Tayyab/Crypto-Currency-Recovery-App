@@ -7,11 +7,7 @@ import cryptoRecoveryRoutes from "./routes/cryptoRecoveryInfo.route.js";
 dotenv.config();
 
 const app = express();
-app.use(
-  cors({
-    origin: "https://crypto-currency-recovery-app-dxux.vercel.app/", // Replace with your deployed domain
-  })
-);
+app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
 app.get("/", async (req, res) => {
