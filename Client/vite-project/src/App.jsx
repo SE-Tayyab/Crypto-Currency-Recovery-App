@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./componenets/header";
-import Footer from "./componenets/Footer";
-import AdminLogin from "./pages/deshboard/AdminLogin";
-import Home from "./pages/Home";
-import Requests from "./pages/deshboard/Requests";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
+import AdminLogin from "./pages/deshboard/AdminLogin.jsx";
+import Home from "./pages/Home.jsx";
+import Requests from "./pages/deshboard/Requests.jsx";
 
 function App() {
   const [count, setCount] = useState(0);

@@ -1,7 +1,7 @@
 import React from "react";
-import CryptoRecoveryForm from "../componenets/Home/CryptoRecoveryForm";
-import CryptoTracingInfo from "../componenets/Home/CryptoTracingInfo";
-import LastSection from "../componenets/Home/LastSection";
+import CryptoRecoveryForm from "../components/Home/CryptoRecoveryForm";
+import CryptoTracingInfo from "../components/Home/CryptoTracingInfo";
+import LastSection from "../components/Home/LastSection";
 
 function Home() {
   return (
@@ -14,7 +14,7 @@ function Home() {
         <CryptoTracingInfo />
       </section>
 
-      <section >
+      <section>
         <LastSection />
       </section>
     </>

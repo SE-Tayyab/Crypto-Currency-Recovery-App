@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import RequestList from "../../componenets/RequestList";
-import LoadingSpinner from "../../componenets/LoadingSpinner";
+import RequestList from "../../components/RequestList";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 function Requests() {
   const [requests, setRequests] = useState([]); // State to store requests
