@@ -63,13 +63,13 @@ const CryptoRecoveryForm = () => {
     >
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl sm:text-6xl font-bold text-center mb-2 leading-snug tracking-wide">
-          Recover your money from <br /> cryptocurrency scams
+          Recover your money <br /> from cryptocurrency Scam
         </h1>
         <p
           style={{ color: yellow, fontFamily: "Arial" }}
-          className="text-3xl sm:text-5xl font-bold text-center mb-8"
+          className="text-3xl sm:text-5xl font-bold text-center mt-8 mb-8"
         >
-          No-Win No Fee
+          NO WIN | NO FEE
         </p>
 
         <p className="text-lg sm:text-xl text-center mb-20">
