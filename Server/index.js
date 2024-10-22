@@ -7,7 +7,26 @@ import cryptoRecoveryRoutes from "./routes/cryptoRecoveryInfo.route.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+const whitelist = [
+  "http://localhost:5173",
+  "https://crypto-currency-recovery-app-dxux.vercel.app/",
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: "50mb" }));
 
 app.get("/", async (req, res) => {

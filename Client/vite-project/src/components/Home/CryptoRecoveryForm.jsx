@@ -35,7 +35,7 @@ const CryptoRecoveryForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/crypto-recovery/add`,
+        `https://crypto-currency-recovery-app-7p79.vercel.app/crypto-recovery/add`,
         formData
       );
       // Open the modal upon successful submission
