@@ -66,10 +66,10 @@ const CryptoRecoveryForm = () => {
           Recover your money from <br /> cryptocurrency scams
         </h1>
         <p
-          style={{ color: yellow, fontFamily: "Montserrat Alternates" }}
+          style={{ color: yellow, fontFamily: "Arial" }}
           className="text-3xl sm:text-5xl font-bold text-center mb-8"
         >
-          no-win, no fee
+          No-Win No Fee
         </p>
 
         <p className="text-lg sm:text-xl text-center mb-20">
