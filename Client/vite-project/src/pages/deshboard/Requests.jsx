@@ -29,9 +29,7 @@ function Requests() {
   const handleDeleteRequest = async (id) => {
     try {
       await axios.post(
-        `${
-          import.meta.env.VITE_REACT_APP_BACKEND_BASEURL
-        }/crypto-recovery/delete`,
+        "https://crypto-currency-recovery-app.vercel.app/api/v1/crypto-recovery/delete",
         {
           id, // Sending ID as an object
         }
