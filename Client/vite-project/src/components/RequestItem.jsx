@@ -1,131 +1,148 @@
 import React from "react";
-import { Pencil, Trash2 } from "lucide-react";
+import {
+  Trash2,
+  User,
+  Briefcase,
+  FileText,
+  Mail,
+  Phone,
+  Globe,
+  Bitcoin,
+  DollarSign,
+} from "lucide-react";
 
 function RequestItem({ request, onDeleteRequest }) {
-  const handleEditRequest = () => {
-    console.log("Edit request:", request.id);
-  };
+  const handleDelete = (id) => {
+    // Show notification when an item is deleted
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this request?"
+    );
 
-  const getStatusColor = (status) => {
-    const statusMap = {
-      pending: "bg-yellow-500",
-      approved: "bg-green-500",
-      rejected: "bg-red-500",
-      inProgress: "bg-blue-500",
-    };
-    return statusMap[status.toLowerCase()] || "bg-gray-500";
+    if (confirmDelete) {
+      alert(
+        `Request by ${request.firstName} ${request.lastName} has been deleted.`
+      );
+      onDeleteRequest(id);
+    }
   };
 
   return (
     <div className="w-full mb-6 overflow-hidden bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 p-6">
-        {/* Personal Information Section */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Personal Information
-          </h3>
-          <div className="space-y-2">
-            <div className="flex">
-              <span className="text-sm text-gray-500 dark:text-gray-400 w-32">
-                Name:
-              </span>
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                {request.firstName} {request.lastName}
-              </span>
+      {/* Header with name and delete action */}
+      <div className="p-4 border-b dark:border-gray-700 flex justify-between items-center">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+          {request.firstName} {request.lastName}
+        </h2>
+        <button
+          onClick={() => handleDelete(request._id)}
+          className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-colors duration-150"
+          aria-label="Delete request"
+        >
+          <Trash2 className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Content sections in cards */}
+      <div className="p-4 space-y-4">
+        {/* Personal Information Card */}
+        <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <User className="w-5 h-5 text-blue-500" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Personal Information
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="flex items-center gap-2">
+              <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <div className="min-w-0">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Email
+                </p>
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                  {request.email}
+                </p>
+              </div>
             </div>
-            <div className="flex">
-              <span className="text-sm text-gray-500 dark:text-gray-400 w-32">
-                Email:
-              </span>
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                {request.email}
-              </span>
+
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <div className="min-w-0">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Phone
+                </p>
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                  {request.phone}
+                </p>
+              </div>
             </div>
-            <div className="flex">
-              <span className="text-sm text-gray-500 dark:text-gray-400 w-32">
-                Phone:
-              </span>
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                {request.phone}
-              </span>
-            </div>
-            <div className="flex">
-              <span className="text-sm text-gray-500 dark:text-gray-400 w-32">
-                Country:
-              </span>
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                {request.country}
-              </span>
+
+            <div className="flex items-center gap-2">
+              <Globe className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <div className="min-w-0">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Country
+                </p>
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                  {request.country}
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Case Details Section */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Case Details
-          </h3>
-          <div className="space-y-2">
-            <div className="flex">
-              <span className="text-sm text-gray-500 dark:text-gray-400 w-32">
-                Cryptocurrency:
-              </span>
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                {request.cryptoName}
-              </span>
+        {/* Case Details Card */}
+        <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Briefcase className="w-5 h-5 text-green-500" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Case Details
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="flex items-center gap-2">
+              <Bitcoin className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <div className="min-w-0">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Cryptocurrency
+                </p>
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                  {request.cryptoName}
+                </p>
+              </div>
             </div>
-            <div className="flex">
-              <span className="text-sm text-gray-500 dark:text-gray-400 w-32">
-                Amount Lost:
-              </span>
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                {request.amount}
-              </span>
+
+            <div className="flex items-center gap-2">
+              <DollarSign className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <div className="min-w-0">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Amount Lost
+                </p>
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                  {request.amount}
+                </p>
+              </div>
             </div>
-            {/* <div className="flex items-center">
-              <span className="text-sm text-gray-500 dark:text-gray-400 w-32">
-                Status:
-              </span>
-              <span
-                className={`px-2 py-1 text-xs font-medium text-white rounded-full ${getStatusColor(
-                  request.status
-                )}`}
-              >
-                {request.status}
-              </span>
-            </div> */}
           </div>
         </div>
 
-        {/* Case Report Section */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Case Report
-          </h3>
-          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-            <p className="text-sm text-gray-600 dark:text-gray-300 whitespace-pre-wrap">
+        {/* Case Report Card */}
+        <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+          <div className="flex items-center gap-2 mb-3">
+            <FileText className="w-5 h-5 text-purple-500" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Case Report
+            </h3>
+          </div>
+
+          <div className="bg-white dark:bg-gray-700 p-4 rounded-lg">
+            <p className="text-sm text-gray-600 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
               {request.caseReport}
             </p>
           </div>
         </div>
-      </div>
-
-      {/* Actions Section */}
-      <div className="flex justify-end gap-2 p-4 bg-gray-50 dark:bg-gray-700/50 border-t dark:border-gray-700">
-        {/* <button
-          onClick={handleEditRequest}
-          className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md transition-colors duration-150 ease-in-out"
-        >
-          <Pencil className="w-4 h-4 mr-2" />
-          Edit
-        </button> */}
-        <button
-          onClick={() => onDeleteRequest(request._id)}
-          className="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-md transition-colors duration-150 ease-in-out"
-        >
-          <Trash2 className="w-4 h-4 mr-2" />
-          Delete
-        </button>
       </div>
     </div>
   );
