@@ -33,9 +33,11 @@ const CryptoRecoveryForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
     try {
       const response = await axios.post(
         `https://crypto-currency-recovery-app.vercel.app/api/v1/crypto-recovery/add`,
+        // `${VITE_REACT_APP_BACKEND_BASEURL}/crypto-recovery/add`,
         formData
       );
       // Open the modal upon successful submission
@@ -149,9 +151,9 @@ const CryptoRecoveryForm = () => {
                     value={formData.countryCode}
                     onChange={handleChange}
                     required
-                    className="bg-gray-700 px-3 py-2 rounded-md w-1/3"
+                    className="bg-gray-700 px-3 py-2 rounded-md w-1/2"
                   >
-                    <option value="">+ Country Code</option>
+                    <option value="">Country Code</option>
                     {countryCodes.map((code) => (
                       <option key={code.code} value={code.code}>
                         {code.name} {code.code}{" "}
@@ -168,6 +170,8 @@ const CryptoRecoveryForm = () => {
                     onChange={handleChange}
                     required
                     className="w-2/3 px-3 py-2 bg-gray-700 rounded-md"
+                    pattern="[0-9]*"
+                    inputMode="numeric"
                   />
                 </div>
               </div>

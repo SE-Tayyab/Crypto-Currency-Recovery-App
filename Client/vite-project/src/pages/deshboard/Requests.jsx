@@ -12,7 +12,6 @@ function Requests() {
     const fetchRequests = async () => {
       try {
         const response = await axios.get(
-          // "http://localhost:5000/api/v1/crypto-recovery/cases"
           `https://crypto-currency-recovery-app.vercel.app/api/v1/crypto-recovery/cases`
         );
         setRequests(response.data.data);

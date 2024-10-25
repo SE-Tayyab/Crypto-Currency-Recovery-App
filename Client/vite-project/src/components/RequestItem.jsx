@@ -9,6 +9,7 @@ import {
   Globe,
   Bitcoin,
   DollarSign,
+  Flag,
 } from "lucide-react";
 
 function RequestItem({ request, onDeleteRequest }) {
@@ -67,18 +68,6 @@ function RequestItem({ request, onDeleteRequest }) {
             </div>
 
             <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-gray-400 flex-shrink-0" />
-              <div className="min-w-0">
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  Phone
-                </p>
-                <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
-                  {request.phone}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
               <Globe className="w-4 h-4 text-gray-400 flex-shrink-0" />
               <div className="min-w-0">
                 <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -86,6 +75,30 @@ function RequestItem({ request, onDeleteRequest }) {
                 </p>
                 <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
                   {request.country}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Flag className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <div className="min-w-0">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Country Code
+                </p>
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                  {request.countryCode}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4 text-gray-400 flex-shrink-0" />
+              <div className="min-w-0">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Phone
+                </p>
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                  {request.phone}
                 </p>
               </div>
             </div>

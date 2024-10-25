@@ -19,6 +19,11 @@ const cryptoRecoverySchema = new mongoose.Schema(
       trim: true,
       match: [/.+@.+\..+/, "Please enter a valid email address"], // Email validation
     },
+    countryCode: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     phone: {
       type: String,
       required: true,

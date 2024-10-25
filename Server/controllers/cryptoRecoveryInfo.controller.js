@@ -13,11 +13,12 @@ export const addCryptoRecovery = async (req, res) => {
       amount,
       country,
       caseReport,
+      countryCode,
     } = req.body;
-
     // Validate required fields (this is optional since we also have validation in the model)
     if (
       !firstName ||
+      !countryCode ||
       !lastName ||
       !email ||
       !phone ||
@@ -42,6 +43,7 @@ export const addCryptoRecovery = async (req, res) => {
       amount,
       country,
       caseReport,
+      countryCode,
     });
 
     // Save the entry in the database
